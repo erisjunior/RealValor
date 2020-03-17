@@ -21,11 +21,11 @@ export default createGlobalStyle`
   }
   body, input, button {
     font: 14px 'Roboto', sans-serif;
-    color: ${({ theme }) => theme.colors.black};
+    color: #333;
   }
   a {
     text-decoration: none;
-    color: ${({ theme }) => theme.colors.blue};
+    color: #179;
     :hover {
       text-decoration: underline;
     }
@@ -36,6 +36,5 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
-
 
 `;

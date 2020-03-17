@@ -1,15 +1,13 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
 
-import * as api from '~/services/api';
+// import * as api from '~/services/api';
 import { AccountTypes, AccountActions } from '~/store/ducks/account';
 
 /** @Get */
 
 function* getAccount({ userId }) {
   try {
-    const { data } = yield call(api.account.getAccount, userId);
-
-    yield getAccountSuccess(data);
+    yield getAccountSuccess(userId);
   } catch (err) {
     yield getAccountFailure();
   }

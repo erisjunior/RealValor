@@ -1,6 +1,4 @@
 import produce from 'immer';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import { createReducer, createActions } from 'reduxsauce';
 
 const { Types, Creators } = createActions({
@@ -37,16 +35,8 @@ function onGetAccountFailure(state) {
   });
 }
 
-const reducer = createReducer(INITIAL_STATE, {
+export default createReducer(INITIAL_STATE, {
   [Types.GET_ACCOUNT_REQUEST]: onGetAccountRequest,
   [Types.GET_ACCOUNT_SUCCESS]: onGetAccountSuccess,
   [Types.GET_ACCOUNT_FAILURE]: onGetAccountFailure,
 });
-
-const persistConfig = {
-  key: '@VondME_Seller/Account',
-  storage,
-  whitelist: ['data'],
-};
-
-export default persistReducer(persistConfig, reducer);
