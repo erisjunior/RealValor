@@ -1,7 +1,5 @@
-import axios from 'axios';
+import api from './config';
 
-const api = axios.create({
-  baseURL: '',
-});
-
-export default api;
+export function getBitcoin() {
+  return api;
+}

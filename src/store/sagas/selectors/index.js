@@ -1,5 +1,5 @@
 import { select } from 'redux-saga/effects';
 
-export function* getAccount() {
-  return yield select(state => state.account);
+export function* getRevenue() {
+  return yield select(state => state.revenue);
 }
