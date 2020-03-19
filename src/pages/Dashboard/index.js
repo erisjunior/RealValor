@@ -11,7 +11,7 @@ export default function Dashboard() {
   const { data, revenueLoading } = useSelector(state => state.revenue);
 
   const [yearsAgo, setYears] = useState(1);
-  const [amount, setAmount] = useState(2);
+  const [amount, setAmount] = useState(2000);
 
   useEffect(() => {
     dispatch(RevenueActions.getRevenueRequest({ amount, yearsAgo }));
@@ -26,8 +26,8 @@ export default function Dashboard() {
       </Section>
       <Section>
         <h1>Valor total investido</h1>
-        <Button text='R$ 2 mil' onClick={() => setAmount(2)} />
-        <Button text='R$ 10 mil' onClick={() => setAmount(10)} />
+        <Button text='R$ 2 mil' onClick={() => setAmount(2000)} />
+        <Button text='R$ 10 mil' onClick={() => setAmount(10000)} />
       </Section>
       {revenueLoading ? <Loading /> : <Chart data={data} />}
     </Container>

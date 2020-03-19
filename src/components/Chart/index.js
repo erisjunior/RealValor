@@ -21,7 +21,7 @@ function Chart({ data: { bitcoin, directTreasure } }) {
 
   const axes = useMemo(
     () => [
-      { primary: true, type: 'linear', position: 'bottom' },
+      { primary: true, type: 'time', position: 'bottom' },
       { type: 'linear', position: 'left' },
     ],
     []

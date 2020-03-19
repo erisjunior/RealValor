@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put, call, delay } from 'redux-saga/effects';
 
 import * as helpers from '~/helpers';
 import * as api from '~/services/api';
@@ -8,12 +8,16 @@ import { RevenueTypes, RevenueActions } from '~/store/ducks/revenue';
 
 function* getRevenue({ filter }) {
   try {
-    const bitcoin = yield call(api.getBitcoin, filter);
-    const directTreasure = helpers.calcDirectTreasure(filter);
+    yield delay(500);
 
-    const formatedData = helpers.formatData(bitcoin, directTreasure);
+    const time = Date.now();
 
-    yield getRevenueSuccess(formatedData);
+    const bitcoinData = yield call(api.getBitcoin, time);
+
+    const bitcoin = helpers.formatBitcoin(bitcoinData, filter);
+    const directTreasure = helpers.formatDirectTreasure(filter);
+
+    yield getRevenueSuccess({ bitcoin, directTreasure });
   } catch (err) {
     yield getRevenueFailure();
   }
