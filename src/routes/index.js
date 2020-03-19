@@ -7,7 +7,6 @@ export default function PublicRoutes() {
   return (
     <Switch>
       <Route exact path='/' component={Pages.Dashboard} />
-      <Route path='/cadastro' component={() => <h1>ô loko</h1>} />
 
       <Redirect to='/' />
     </Switch>

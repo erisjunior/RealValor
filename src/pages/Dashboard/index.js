@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Button, Chart, Loading } from '~/components';
+import { Input, Chart, Button, Loading, Modal } from '~/components';
 import { RevenueActions } from '~/store/ducks/revenue';
 
-import { Container, Section } from './styles';
+import {
+  Container,
+  Section,
+  InputsContainer,
+  ChartContainer,
+  Title,
+  SubTitle,
+} from './styles';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -12,6 +19,7 @@ export default function Dashboard() {
 
   const [yearsAgo, setYears] = useState(1);
   const [amount, setAmount] = useState(2000);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     dispatch(RevenueActions.getRevenueRequest({ amount, yearsAgo }));
@@ -19,17 +27,42 @@ export default function Dashboard() {
 
   return (
     <Container>
+      <Modal
+        data={data}
+        isOpen={modal}
+        onRequestClose={() => setModal(false)}
+      />
+      <Title>Análise de investimentos</Title>
+      <SubTitle>
+        Serão calculados os resultados de investimentos de um determinado valor
+        em reias em feito à uma determinada quantidade de anos atrás
+      </SubTitle>
+      <SubTitle>
+        Fica à disposição do usuario a manipulação das entradas, para então
+        serem mostrados os resultados no gráfico.
+      </SubTitle>
       <Section>
-        <h1>Data de realização do investimento</h1>
-        <Button text='1 ano atrás' onClick={() => setYears(1)} />
-        <Button text='2 anos atrás' onClick={() => setYears(2)} />
+        <InputsContainer>
+          <Input
+            text='Data de realização do investimento:'
+            value={yearsAgo}
+            maxAmount={10}
+            onChange={setYears}
+          />
+          <Input
+            text='Valor total investido:'
+            value={amount}
+            onChange={setAmount}
+          />
+        </InputsContainer>
+        <ChartContainer>
+          {revenueLoading ? <Loading /> : <Chart data={data} />}
+        </ChartContainer>
       </Section>
-      <Section>
-        <h1>Valor total investido</h1>
-        <Button text='R$ 2 mil' onClick={() => setAmount(2000)} />
-        <Button text='R$ 10 mil' onClick={() => setAmount(10000)} />
-      </Section>
-      {revenueLoading ? <Loading /> : <Chart data={data} />}
+      <Button
+        text='Checar Detalhamento'
+        onClick={() => !revenueLoading && setModal(!modal)}
+      />
     </Container>
   );
 }

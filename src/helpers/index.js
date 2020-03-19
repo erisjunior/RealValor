@@ -1,3 +1,5 @@
+import format from 'date-fns/format';
+import { ptBR as locale } from 'date-fns/locale';
 import subMonths from 'date-fns/subMonths';
 import subYears from 'date-fns/subYears';
 
@@ -31,7 +33,7 @@ export function formatDirectTreasure(filter) {
 
   const revenue = amount - initialAmount;
 
-  return { initialAmount, initialDate, amount, revenue, chartData, ...filter };
+  return { ...filter, initialAmount, initialDate, amount, revenue, chartData };
 }
 
 function formatBitcoinChart() {
@@ -49,4 +51,17 @@ export function formatBitcoin(data, filter) {
   const revenue = amount - initialAmount;
 
   return { initialAmount, initialDate, amount, revenue, chartData, ...filter };
+}
+
+export function formatMoney(data) {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(data / 100);
+}
+
+export function formatDate(date) {
+  const timeZone = 'America/Brazil';
+
+  return format(new Date(date), 'dd/MM/yyyy', { timeZone, locale });
 }

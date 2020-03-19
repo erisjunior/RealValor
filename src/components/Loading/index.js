@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Container } from './styles';
 
-export default function Loading() {
+function Loading() {
   return (
     <Container>
       <div />
@@ -10,3 +10,5 @@ export default function Loading() {
     </Container>
   );
 }
+
+export default memo(Loading);
